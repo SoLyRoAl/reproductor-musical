@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mi canción de música</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f5f8;
+  text-align: center;
+  padding: 35px 15px;
+  color: #303746;
+}
+.player {
+  background: white;
+  max-width: 420px;
+  margin: auto;
+  padding: 28px 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 18px #0001;
+}
+h2 { margin-bottom: 8px; }
+p { color: #697386; }
+audio { width: 100%; margin: 20px 0; }
+button {
+  border: 0;
+  border-radius: 12px;
+  padding: 13px 15px;
+  margin: 5px;
+  background: #e9edf5;
+  font-size: 16px;
+  cursor: pointer;
+}
+button.active {
+  background: #344e91;
+  color: white;
+}
+</style>
+</head>
+<body>
+<div class="player">
+  <h2>🎵 Mi canción de música</h2>
+  <p>Escucha y practica a tu ritmo</p>
+
+  <audio id="audio" controls preload="metadata">
+    <source src="https://drive.google.com/uc?export=download&id=1WUj6mk5HXmKH0fP7LWAp4iWpDkd-h_3m" type="audio/mpeg">
+    Tu navegador no puede reproducir este audio.
+  </audio>
+
+  <h3>Elige la velocidad</h3>
+  <div id="speeds">
+    <button data-speed="0.7">70 %</button>
+    <button data-speed="0.8">80 %</button>
+    <button data-speed="0.9">90 %</button>
+    <button data-speed="1" class="active">100 %</button>
+    <button data-speed="1.1">110 %</button>
+  </div>
+  <p id="status">Velocidad: 100 %</p>
+</div>
+
+<script>
+const audio = document.getElementById("audio");
+const buttons = document.querySelectorAll("#speeds button");
+const status = document.getElementById("status");
+
+buttons.forEach(button => {
+  button.addEventListener("click", () => {
+    const speed = Number(button.dataset.speed);
+    audio.playbackRate = speed;
+
+    buttons.forEach(b => b.classList.remove("active"));
+    button.classList.add("active");
+
+    status.textContent = "Velocidad: " + Math.round(speed * 100) + " %";
+  });
+});
+</script>
+</body>
+</html>
